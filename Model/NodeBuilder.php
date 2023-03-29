@@ -75,27 +75,27 @@ class NodeBuilder
     public function elementNode($name, array $attributes = [], $value = '')
     {
         $element = $this->domDocument->createElement($name);
-
+    
         foreach ($attributes as $attributeName => $attributeValue) {
             $element->setAttribute($attributeName, $attributeValue);
         }
-
+    
         if ($value !== '') {
-            $element->nodeValue = $value;
+            $element->nodeValue = strval($value);
         }
-
+    
         $this->lastCreatedElement = $element;
-
+    
         if ($this->stack->isEmpty()) {
             return $this;
         }
-
+    
         /** @var \DOMDocument $currentElement */
         $currentElement = $this->stack->top();
         $currentElement->appendChild($element);
-
+    
         return $this;
-    }
+    }   
 
     /**
      * @return $this
